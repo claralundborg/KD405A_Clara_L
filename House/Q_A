@@ -1,0 +1,41 @@
+Frågor!
+
+a. Konstruktor:  
+public House(int yearBuilt,int size){
+ //diverse kod
+ }
+ 
+b. Instansvariabler:
+yearBuilt, size och minSize
+
+c. Instansmetoder:
+ public int getYearBuilt(){
+ //diverse kod
+ }
+ public int getSize(){
+ //diverse kod
+ }
+
+d. Vad innebär det att minSize är deklarerad final?
+Den är redan tilldelad ett värde och går inte att initialiseras i konstruktorn?
+
+e. Vad innebär det att vissa koddelar är deklarerade private och andra public?
+Private markeras med - och kan bara användas lokalt. Public markeras med + och kan användas överallt i koden.
+
+f. UML-diagram
+
+Klassnamn: House
+Variabler:  private int yearBuilt;
+ private int size;
+ private final int minSize = 10;
+Konstruktorer och metoder: 
+public House(int yearBuilt,int size){
+ //diverse kod
+ }
+ public int getYearBuilt(){
+ //diverse kod
+ }
+ public int getSize(){
+ //diverse kod
+ }
+}
