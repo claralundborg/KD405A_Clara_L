@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class DigitalClockGUI extends JFrame {
 
@@ -20,21 +21,7 @@ public class DigitalClockGUI extends JFrame {
 	private JLabel lblShowTime;
 	private JLabel lblAlarmAt;
 	private ClockLogic clockLogic;
-	
-
-	public void setTimeOnLabel(String time){
-		lblShowTime.setText(time);
-	}
-	
-	
-	public void activateAlarm(boolean activate){
-		
-		if(activate){
-				
-			}else{
-				
-			}		
-	}
+	private JLabel lblMessage;
 	
 	
 	/* Launch the application. **/
@@ -50,9 +37,6 @@ public class DigitalClockGUI extends JFrame {
 			}
 		});
 	}
-
-	
-	
 	
 	
 	
@@ -129,6 +113,7 @@ public class DigitalClockGUI extends JFrame {
 		
 		
 		lblShowTime = new JLabel("");
+		lblShowTime.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
 		lblShowTime.setBounds(28, 100, 216, 80);
 		contentPane.add(lblShowTime);
 		
@@ -140,6 +125,31 @@ public class DigitalClockGUI extends JFrame {
 		lblAlarmAt.setBounds(374, 100, 102, 26);
 		contentPane.add(lblAlarmAt);
 		
+		lblMessage = new JLabel("");
+		lblMessage.setFont(new Font("Lucida Grande", Font.PLAIN, 25));
+		lblMessage.setBounds(301, 161, 177, 68);
+		contentPane.add(lblMessage);
+		
 		clockLogic = new ClockLogic(this);
 	}
+	
+	public void setTimeOnLabel(String time){
+		lblShowTime.setText(time);
+	}
+	
+	public void setAlarmOnLabel(String alarmTime){
+		lblAlarmAt.setText(alarmTime);
+	}
+	
+	public void activateAlarm(boolean activate){
+		
+		if(activate){
+			lblMessage.setText("Wake up!");
+				
+			}else{
+				lblMessage.setText("");
+				
+			}		
+	}
+
 }

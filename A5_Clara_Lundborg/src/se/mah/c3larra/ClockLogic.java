@@ -1,5 +1,6 @@
 package se.mah.c3larra;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 public class ClockLogic {
@@ -23,28 +24,21 @@ public class ClockLogic {
 	}
 	
 	public void clearAlarm(){
-		
+		setAlarm(-1, -1);
+		digClockGUI.activateAlarm(false);
 		
 	}
 	
-	public int getHour() {
-		return alarmHour;
-	}
+	/*public int alarmTime() {
+		return alarmTime;
+	}*/
 	
 	private class ClockThread extends Thread{
 		@Override
 		public void run() {
+			DecimalFormat df = new DecimalFormat("00");
+			
 			while(true){
-				
-				Calendar c = Calendar.getInstance();
-				int hour = c.get(Calendar.HOUR_OF_DAY);
-				int min = c.get(Calendar.MINUTE);
-				int second = c.get(Calendar.SECOND);
-
-				String time = hour + " : "+ min + " : " + second;
-				System.out.println(time);
-				
-				digClockGUI.setTimeOnLabel(time);
 				
 				try {
 					Thread.sleep(900);
@@ -52,6 +46,24 @@ public class ClockLogic {
 					e.printStackTrace();
 					
 					return;
+				}
+				
+				Calendar c = Calendar.getInstance();
+				int hour = c.get(Calendar.HOUR_OF_DAY);
+				int min = c.get(Calendar.MINUTE);
+				int second = c.get(Calendar.SECOND);
+
+				String time = (df.format(hour) + " : "+ df.format(min) + " : " + df.format(second));
+				System.out.println(time);
+				
+				digClockGUI.setTimeOnLabel(time);
+				
+				if((hour == alarmHour && min == alarmMinutes)) {
+					digClockGUI.activateAlarm(true);
+					System.out.println("hellu");
+				} else {
+					digClockGUI.activateAlarm(false);
+					System.out.println("nope");
 				}
 				
 			
