@@ -1,4 +1,14 @@
 FRÅGOR
 
 1. Mellan Malmö C och Lund C
-2. ?cmdaction=next&selPointFr=0|80000|0&selPointTo=0|81216|0&NoOf5
+
+2. ?cmdaction=next&selPointFr=0|80000|0&selPointTo=0|81216|0&NoOf=5 (&NoOf=5)
+
+3. <Journeys> = Visar all information om resan, t.ex. pris, tåg osv.
+	<Journey> = Visar olika resor för den destination du valt. 
+	<RouteLinks> = Visar alla byten för resan.
+	<RouteLink> = Visar ett specifikt byte för resan.
+	
+4. <NoOfChanges> </NoOfChanges> ligger i <Journey>
+
+5. <Message> </Message>
