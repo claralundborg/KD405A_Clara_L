@@ -4,11 +4,18 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import se.mah.k3lara.skaneAPI.control.Constants;
+import se.mah.k3lara.skaneAPI.model.Station;
+import se.mah.k3lara.skaneAPI.xmlparser.Parser;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class TrafikGUI extends JFrame {
 
@@ -17,7 +24,11 @@ public class TrafikGUI extends JFrame {
 	private JTextField textTo;
 	private JTextField textFrom;
 	
-	private JTextArea result;
+	private JTextArea journeyResult;
+	private JTextArea firstResult;
+	private JScrollPane scrollPane;
+
+
 
 	/**
 	 * Launch the application.
@@ -55,18 +66,25 @@ public class TrafikGUI extends JFrame {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				result.setText("Söker..");
-				new StationThread().start();
+				firstResult.setText("");
 				
+				ArrayList<Station> searchStations = new ArrayList<Station>(); 
+				searchStations.addAll(Parser.getStationsFromURL(textSearch.getText()));
+				for (Station s: searchStations){
+					firstResult.append(s.getStationName() +" number:" +s.getStationNbr() + "\n");
+				}
 			}
 		});
 		btnSearch.setBounds(222, 23, 117, 29);
 		contentPane.add(btnSearch);
 		
-		JTextArea result = new JTextArea();
-		result.setBounds(27, 61, 312, 78);
-		contentPane.add(result);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(27, 61, 302, 64);
+		contentPane.add(scrollPane);
 		
+		firstResult = new JTextArea();
+		scrollPane.setViewportView(firstResult);
+
 		JPanel panel = new JPanel();
 		panel.setBounds(27, 151, 312, 44);
 		contentPane.add(panel);
@@ -79,11 +97,21 @@ public class TrafikGUI extends JFrame {
 		panel.add(textTo);
 		textTo.setColumns(10);
 		
-		JTextArea journeyResult = new JTextArea();
+		journeyResult = new JTextArea();
 		journeyResult.setBounds(27, 238, 312, 157);
 		contentPane.add(journeyResult);
 		
 		JButton btnSk = new JButton("Sök");
+		btnSk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				journeyResult.setText("Söker...");
+
+				String searchURL = Constants.getURL(textFrom.getText(), textTo.getText(), 1); //Malm� C = 80000,  Lund C, 81216 Malm� Gatorg 80100, H�ssleholm C 93070
+				System.out.println(searchURL);
+				System.out.println("// Results when searching:");
+			}
+		});
 		btnSk.setBounds(131, 197, 117, 29);
 		contentPane.add(btnSk);
 	}
